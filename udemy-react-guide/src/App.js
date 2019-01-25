@@ -9,7 +9,8 @@ class App extends Component {
             {name: 'Max', age: 23},
             {name: 'Manu', age: 29},
             {name: 'Steffanie', age: 26}
-        ]
+        ],
+        showPersons: false
     };
 
     switchNameHandler = (newName) => {
@@ -32,29 +33,40 @@ class App extends Component {
         })
     };
 
+    togglePersons = () => {
+        this.setState({
+            showPersons: !this.state.showPersons
+        })
+    };
+
     render() {
         return (
             <div className="App">
                 <h1>Hello World!</h1>
                 <p>This actually works</p>
-                <button onClick={() => this.switchNameHandler('new Name1')}>Switch name</button>
-                <Person
-                    name={this.state.persons[0].name}
-                    age={this.state.persons[0].age}/>
-                <Person
-                    name={this.state.persons[1].name}
-                    age={this.state.persons[1].age}
-                    click={this.switchNameHandler.bind(this, 'new Name2')}
-                >Test my nest
-                </Person>
-                <Person
-                    name={this.state.persons[2].name}
-                    age={this.state.persons[2].age}
-                    changed={this.nameChangeHandler}
-                />
+                <button onClick={this.togglePersons}>Toggle list</button>
+                {
+                    this.state.showPersons ?
+                        <div>
+                            <Person
+                                name={this.state.persons[0].name}
+                                age={this.state.persons[0].age}/>
+                            <Person
+                                name={this.state.persons[1].name}
+                                age={this.state.persons[1].age}
+                                click={this.switchNameHandler.bind(this, 'new Name2')}>Test my nest
+                            </Person>
+                            <Person
+                                name={this.state.persons[2].name}
+                                age={this.state.persons[2].age}
+                                changed={this.nameChangeHandler}/>
+                        </div>
+                        : null
+                }
             </div>
         );
     }
+
 }
 
 export default App;
