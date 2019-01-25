@@ -1,7 +1,7 @@
 import React from 'react'
 import './Person.css'
 
-const person =  (props) => {
+const person = (props) => {
     return (
         <div className="Person" onClick={props.click}>
             <p>I'm a {props.name} and i`m {props.age} years old</p>
