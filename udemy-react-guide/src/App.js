@@ -62,6 +62,15 @@ class App extends Component {
 
     render() {
         let persons = null;
+        const buttonStyle = {
+            backgroundColor: 'green',
+            color: 'white',
+            font: 'inherit',
+            padding: '8px',
+            border: '1px solid blue',
+            cursor: 'pointer'
+        };
+
         if (this.state.showPersons) {
             persons = (
                 <div>
@@ -78,7 +87,9 @@ class App extends Component {
                     }
                 </div>
             );
+            buttonStyle.backgroundColor = 'red';
         }
+
         const charList = this.state.charComponents.map((charComponent, index) => {
             return <Char
                 charValue={this.state.charComponents[index]}
@@ -87,17 +98,21 @@ class App extends Component {
             />;
         });
 
+
         return (
             <div className="App">
                 <h1>Hello World!</h1>
                 <p>This actually works</p>
-                <button onClick={this.togglePersons}>Toggle list</button>
+                <button
+                    onClick={this.togglePersons}
+                    style={buttonStyle}
+                >Toggle Persons</button>
                 {persons}
 
-                <Validation textLength={this.state.textValue.length}/>
+               {/* <Validation textLength={this.state.textValue.length}/>
                 <input type="text" onChange={this.textChangeHandler} value={this.state.textValue}/>
                 <p>{this.state.textValue.length}</p>
-                {charList}
+                {charList}*/}
             </div>
         );
     }
