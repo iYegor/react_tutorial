@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import './App.css';
 import Person from './Person/Person';
-import Validation from './Validation/ValidationComponent';
-import CharComponent from './CharComponent/CharComponent';
+import Validation from './Validation/Validation';
+import Char from './Char/Char';
 
 class App extends Component {
 
@@ -14,8 +14,7 @@ class App extends Component {
         ],
         showPersons: false,
         charComponents: [],
-        textValue: '',
-        inputTextLength: 0
+        textValue: ''
     };
 
     deletePersonHandler = (index) => {
@@ -87,11 +86,11 @@ class App extends Component {
                 <button onClick={this.togglePersons}>Toggle list</button>
                 {persons}
 
-                <Validation textLength={this.state.inputTextLength}/>
+                <Validation textLength={this.state.textValue.length}/>
                 <input type="text" onChange={this.textChangeHandler} value={this.state.textValue}/>
-                <p>{this.state.inputTextLength}</p>
+                <p>{this.state.textValue.length}</p>
                 {this.state.charComponents.map((charComponent, index) => {
-                   return <CharComponent
+                   return <Char
                        charValue={this.state.charComponents[index]}
                        deleteCharComponent={() => this.deleteCharComponentHandler(index)}
                        key={index}
