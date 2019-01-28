@@ -1,28 +1,64 @@
 import React, {Component} from 'react';
 import './App.css';
-import Person from './Person/Person'
+import Person from './Person/Person';
+import Validation from './Validation/ValidationComponent';
+import CharComponent from './CharComponent/CharComponent';
 
 class App extends Component {
 
     state = {
         persons: [
-            {id:'asdas1', name: 'Max', age: 23},
-            {id:'2dasdada', name: 'Manu', age: 29},
-            {id:'3adasdas', name: 'Steffanie', age: 26}
+            {id: 'asdas1', name: 'Max', age: 23},
+            {id: '2dasdada', name: 'Manu', age: 29},
+            {id: '3adasdas', name: 'Steffanie', age: 26}
         ],
-        showPersons: false
+        showPersons: false,
+        charComponents: [],
+        textValue: '',
+        inputTextLength: 0
     };
 
     deletePersonHandler = (index) => {
         const persons = [...this.state.persons];
         persons.splice(index, 1);
-        this.setState({persons:persons});
+        this.setState({persons: persons});
+    };
+
+    nameChangeHandler = (event, personId) => {
+        const personIndex = this.state.persons.findIndex(p => {
+                return p.id === personId;
+            });
+        const newCopyOfPerson = {...this.state.persons[personIndex]};
+        newCopyOfPerson.name = event.target.value;
+        const newCopyOfPersons = [...this.state.persons];
+        newCopyOfPersons[personIndex] = newCopyOfPerson;
+        this.setState({persons : newCopyOfPersons});
     };
 
     togglePersons = () => {
         this.setState({
             showPersons: !this.state.showPersons
         })
+    };
+    textChangeHandler = (event) => {
+        const text = event.target.value;
+        const charComponents = text.split('');
+        this.setState ({
+            inputTextLength: text.length,
+            charComponents: charComponents,
+            textValue: text
+        });
+    };
+
+    deleteCharComponentHandler = (index) => {
+        const charComponents = [...this.state.charComponents];
+        charComponents.splice(index, 1);
+        const textValue = charComponents.join('');
+        this.setState({
+            charComponents: charComponents,
+            inputTextLength: charComponents.length,
+            textValue: textValue
+        });
     };
 
     render() {
@@ -33,10 +69,11 @@ class App extends Component {
                     {
                         this.state.persons.map((person, index) => {
                             return <Person
+                                key={person.id}
                                 name={person.name}
                                 age={person.age}
-                                click={() => this.deletePersonHandler(index)}
-                                key={person.id}
+                                deletePerson={() => this.deletePersonHandler(index)}
+                                changed={(event) => this.nameChangeHandler(event, person.id)}
                             />
                         })
                     }
@@ -49,6 +86,17 @@ class App extends Component {
                 <p>This actually works</p>
                 <button onClick={this.togglePersons}>Toggle list</button>
                 {persons}
+
+                <Validation textLength={this.state.inputTextLength}/>
+                <input type="text" onChange={this.textChangeHandler} value={this.state.textValue}/>
+                <p>{this.state.inputTextLength}</p>
+                {this.state.charComponents.map((charComponent, index) => {
+                   return <CharComponent
+                       charValue={this.state.charComponents[index]}
+                       deleteCharComponent={() => this.deleteCharComponentHandler(index)}
+                   />;
+                })}
+
             </div>
         );
     }
