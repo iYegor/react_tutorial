@@ -94,6 +94,7 @@ class App extends Component {
                    return <CharComponent
                        charValue={this.state.charComponents[index]}
                        deleteCharComponent={() => this.deleteCharComponentHandler(index)}
+                       key={index}
                    />;
                 })}
 
