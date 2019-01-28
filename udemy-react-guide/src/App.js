@@ -79,6 +79,14 @@ class App extends Component {
                 </div>
             );
         }
+        const charList = this.state.charComponents.map((charComponent, index) => {
+            return <Char
+                charValue={this.state.charComponents[index]}
+                deleteCharComponent={() => this.deleteCharComponentHandler(index)}
+                key={index}
+            />;
+        });
+
         return (
             <div className="App">
                 <h1>Hello World!</h1>
@@ -89,14 +97,7 @@ class App extends Component {
                 <Validation textLength={this.state.textValue.length}/>
                 <input type="text" onChange={this.textChangeHandler} value={this.state.textValue}/>
                 <p>{this.state.textValue.length}</p>
-                {this.state.charComponents.map((charComponent, index) => {
-                   return <Char
-                       charValue={this.state.charComponents[index]}
-                       deleteCharComponent={() => this.deleteCharComponentHandler(index)}
-                       key={index}
-                   />;
-                })}
-
+                {charList}
             </div>
         );
     }
