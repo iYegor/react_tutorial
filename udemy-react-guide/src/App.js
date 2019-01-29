@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Radium from 'radium';
 import './App.css';
 import Person from './Person/Person';
 import Validation from './Validation/Validation';
@@ -68,7 +69,11 @@ class App extends Component {
             font: 'inherit',
             padding: '8px',
             border: '1px solid blue',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            ':hover' : {
+                backgroundColor: 'lightgreen',
+                color: 'black'
+            }
         };
 
         if (this.state.showPersons) {
@@ -88,6 +93,10 @@ class App extends Component {
                 </div>
             );
             buttonStyle.backgroundColor = 'red';
+            buttonStyle[':hover'] = {
+                backgroundColor: 'salmon',
+                color: 'black'
+            }
         }
 
         const charList = this.state.charComponents.map((charComponent, index) => {
@@ -127,4 +136,4 @@ class App extends Component {
 
 }
 
-export default App;
+export default Radium(App);
