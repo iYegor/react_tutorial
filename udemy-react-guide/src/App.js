@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import Radium, {StyleRoot} from 'radium';
-import './App.css';
+import styles from './App.module.css';
 import Person from './Person/Person';
 import Validation from './Validation/Validation';
 import Char from './Char/Char';
@@ -63,19 +62,6 @@ class App extends Component {
 
     render() {
         let persons = null;
-        const buttonStyle = {
-            backgroundColor: 'green',
-            color: 'white',
-            font: 'inherit',
-            padding: '8px',
-            border: '1px solid blue',
-            cursor: 'pointer',
-            ':hover': {
-                backgroundColor: 'lightgreen',
-                color: 'black'
-            }
-        };
-
         if (this.state.showPersons) {
             persons = (
                 <div>
@@ -92,11 +78,6 @@ class App extends Component {
                     }
                 </div>
             );
-            buttonStyle.backgroundColor = 'red';
-            buttonStyle[':hover'] = {
-                backgroundColor: 'salmon',
-                color: 'black'
-            }
         }
 
         const charList = this.state.charComponents.map((charComponent, index) => {
@@ -106,35 +87,24 @@ class App extends Component {
                 key={index}
             />;
         });
-        let pClass = [''];
-        const pLength = this.state.persons.length;
-        if (pLength < 3) {
-            pClass.push('red');
-        }
-        if (pLength <= 1) {
-            pClass.push('bold');
-        }
         return (
-            <StyleRoot>
-                <div className="App">
-                    <h1>Hello World!</h1>
-                    <p className={pClass.join(' ')}>This actually works</p>
-                    <button
-                        onClick={this.togglePersons}
-                        style={buttonStyle}
-                    >Toggle Persons
-                    </button>
-                    {persons}
+            <div className={styles.App}>
+                <h1>Hello World!</h1>
+                <p >This actually works</p>
+                <button
+                    onClick={this.togglePersons}
+                >Toggle Persons
+                </button>
+                {persons}
 
-                    {/* <Validation textLength={this.state.textValue.length}/>
+                <Validation textLength={this.state.textValue.length}/>
                 <input type="text" onChange={this.textChangeHandler} value={this.state.textValue}/>
                 <p>{this.state.textValue.length}</p>
-                {charList}*/}
-                </div>
-            </StyleRoot>
+                {charList}
+            </div>
         );
     }
 
 }
 
-export default Radium(App);
+export default App;
