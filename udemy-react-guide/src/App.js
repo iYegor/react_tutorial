@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Radium from 'radium';
+import Radium, {StyleRoot} from 'radium';
 import './App.css';
 import Person from './Person/Person';
 import Validation from './Validation/Validation';
@@ -26,13 +26,13 @@ class App extends Component {
 
     nameChangeHandler = (event, personId) => {
         const personIndex = this.state.persons.findIndex(p => {
-                return p.id === personId;
-            });
+            return p.id === personId;
+        });
         const newCopyOfPerson = {...this.state.persons[personIndex]};
         newCopyOfPerson.name = event.target.value;
         const newCopyOfPersons = [...this.state.persons];
         newCopyOfPersons[personIndex] = newCopyOfPerson;
-        this.setState({persons : newCopyOfPersons});
+        this.setState({persons: newCopyOfPersons});
     };
 
     togglePersons = () => {
@@ -43,7 +43,7 @@ class App extends Component {
     textChangeHandler = (event) => {
         const text = event.target.value;
         const charComponents = text.split('');
-        this.setState ({
+        this.setState({
             inputTextLength: text.length,
             charComponents: charComponents,
             textValue: text
@@ -70,7 +70,7 @@ class App extends Component {
             padding: '8px',
             border: '1px solid blue',
             cursor: 'pointer',
-            ':hover' : {
+            ':hover': {
                 backgroundColor: 'lightgreen',
                 color: 'black'
             }
@@ -108,29 +108,30 @@ class App extends Component {
         });
         let pClass = [''];
         const pLength = this.state.persons.length;
-        if (pLength < 3)
-        {
+        if (pLength < 3) {
             pClass.push('red');
         }
-        if (pLength <= 1)
-        {
+        if (pLength <= 1) {
             pClass.push('bold');
         }
         return (
-            <div className="App">
-                <h1>Hello World!</h1>
-                <p className={pClass.join(' ')}>This actually works</p>
-                <button
-                    onClick={this.togglePersons}
-                    style={buttonStyle}
-                >Toggle Persons</button>
-                {persons}
+            <StyleRoot>
+                <div className="App">
+                    <h1>Hello World!</h1>
+                    <p className={pClass.join(' ')}>This actually works</p>
+                    <button
+                        onClick={this.togglePersons}
+                        style={buttonStyle}
+                    >Toggle Persons
+                    </button>
+                    {persons}
 
-               {/* <Validation textLength={this.state.textValue.length}/>
+                    {/* <Validation textLength={this.state.textValue.length}/>
                 <input type="text" onChange={this.textChangeHandler} value={this.state.textValue}/>
                 <p>{this.state.textValue.length}</p>
                 {charList}*/}
-            </div>
+                </div>
+            </StyleRoot>
         );
     }
 
