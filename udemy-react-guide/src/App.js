@@ -97,12 +97,20 @@ class App extends Component {
                 key={index}
             />;
         });
-
-
+        let pClass = [''];
+        const pLength = this.state.persons.length;
+        if (pLength < 3)
+        {
+            pClass.push('red');
+        }
+        if (pLength <= 1)
+        {
+            pClass.push('bold');
+        }
         return (
             <div className="App">
                 <h1>Hello World!</h1>
-                <p>This actually works</p>
+                <p className={pClass.join(' ')}>This actually works</p>
                 <button
                     onClick={this.togglePersons}
                     style={buttonStyle}
