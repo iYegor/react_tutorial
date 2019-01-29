@@ -3,6 +3,7 @@ import styles from './App.module.css';
 import Person from './Person/Person';
 import Validation from './Validation/Validation';
 import Char from './Char/Char';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
 
@@ -67,13 +68,14 @@ class App extends Component {
                 <div>
                     {
                         this.state.persons.map((person, index) => {
-                            return <Person
+                            return <ErrorBoundary key={person.id}>
+                                <Person
                                 key={person.id}
                                 name={person.name}
                                 age={person.age}
                                 deletePerson={() => this.deletePersonHandler(index)}
-                                changed={(event) => this.nameChangeHandler(event, person.id)}
-                            />
+                                changed={(event) => this.nameChangeHandler(event, person.id)}/>
+                            </ErrorBoundary>
                         })
                     }
                 </div>

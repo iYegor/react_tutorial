@@ -6,3 +6,13 @@
     padding: 20px;
     text-align: left;
 }
+
+.Person button:hover {
+    background-color: salmon;
+}
+
+@media (min-width: 500px) {
+    .Person {
+        width: 300px;
+    }
+}
