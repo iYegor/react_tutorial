@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import styles from './App.module.css';
-import Person from '../components/Persons/Person/Person';
-import Validation from '../components/Validation/Validation';
-import Char from '../components/Char/Char';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
 
@@ -34,77 +33,26 @@ class App extends Component {
         this.setState({persons: newCopyOfPersons});
     };
 
-    togglePersons = () => {
+    togglePersonsHandler = () => {
         this.setState({
             showPersons: !this.state.showPersons
         })
     };
-    textChangeHandler = (event) => {
-        const text = event.target.value;
-        const charComponents = text.split('');
-        this.setState({
-            inputTextLength: text.length,
-            charComponents: charComponents,
-            textValue: text
-        });
-    };
-
-    deleteCharComponentHandler = (index) => {
-        const charComponents = [...this.state.charComponents];
-        charComponents.splice(index, 1);
-        const textValue = charComponents.join('');
-        this.setState({
-            charComponents: charComponents,
-            inputTextLength: charComponents.length,
-            textValue: textValue
-        });
-    };
 
     render() {
-        let persons = null;
-        if (this.state.showPersons) {
-            persons = (
-                <div>
-                    {
-                        this.state.persons.map((person, index) => {
-                            return <Person
-                                key={person.id}
-                                name={person.name}
-                                age={person.age}
-                                deletePerson={() => this.deletePersonHandler(index)}
-                                changed={(event) => this.nameChangeHandler(event, person.id)}
-                                />
-                        })
-                    }
-                </div>
-            );
-        }
-
-        const charList = this.state.charComponents.map((charComponent, index) => {
-            return <Char
-                charValue={this.state.charComponents[index]}
-                deleteCharComponent={() => this.deleteCharComponentHandler(index)}
-                key={index}
-            />;
-        });
         return (
             <div className={styles.App}>
-                <h1>Hello World!</h1>
-                <p >This actually works</p>
-                <button
-                    onClick={this.togglePersons}
-                >Toggle Persons
-                </button>
-                {persons}
-
-                <Validation textLength={this.state.textValue.length}/>
-                <input type="text" onChange={this.textChangeHandler} value={this.state.textValue}/>
-                <p>{this.state.textValue.length}</p>
-                {charList}
+                <Cockpit
+                    clicked={this.togglePersonsHandler}
+                />
+                <Persons
+                    persons={this.state.showPersons ? this.state.persons : []}
+                    clicked={this.deletePersonHandler}
+                    changed={this.nameChangeHandler}
+                />
             </div>
         );
     }
-
 }
 
 export default App;
