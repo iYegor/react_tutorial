@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import styles from './App.module.css';
-import Person from './Person/Person';
-import Validation from './Validation/Validation';
-import Char from './Char/Char';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+import Person from '../components/Persons/Person/Person';
+import Validation from '../components/Validation/Validation';
+import Char from '../components/Char/Char';
 
 class App extends Component {
 
@@ -68,14 +67,13 @@ class App extends Component {
                 <div>
                     {
                         this.state.persons.map((person, index) => {
-                            return <ErrorBoundary key={person.id}>
-                                <Person
+                            return <Person
                                 key={person.id}
                                 name={person.name}
                                 age={person.age}
                                 deletePerson={() => this.deletePersonHandler(index)}
-                                changed={(event) => this.nameChangeHandler(event, person.id)}/>
-                            </ErrorBoundary>
+                                changed={(event) => this.nameChangeHandler(event, person.id)}
+                                />
                         })
                     }
                 </div>
