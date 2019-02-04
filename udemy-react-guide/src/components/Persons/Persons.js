@@ -2,7 +2,7 @@ import Person from "./Person/Person";
 import React from "react";
 
 const persons = (props) => (
-    <div>
+    <>
         {
             props.persons.map((person, index) => {
                 return <Person
@@ -14,7 +14,7 @@ const persons = (props) => (
                 />
             })
         }
-    </div>
+    </>
 );
 
 export default persons;
