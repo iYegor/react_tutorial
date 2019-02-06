@@ -3,27 +3,18 @@ import styles from './App.module.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
+export const AuthContext = React.createContext(false);
+
 class App extends Component {
-    constructor(props) {
-        super(props);
-        console.log('[App.js] inside constructor', props);
-        this.state = {
-            persons: [
-                {id: 'asdas1', name: 'Max', age: 23},
-                {id: '2dasdada', name: 'Manu', age: 29},
-                {id: '3adasdas', name: 'Steffanie', age: 26}
-            ],
-            showPersons: true
-        };
-    }
-
-    componentWillMount() {
-        console.log('[App.js] inside componentWillMount');
-    }
-
-    componentDidMount() {
-        console.log('[App.js] inside componentDidMount');
-    }
+    state = {
+        persons: [
+            {id: 'asdas1', name: 'Max', age: 23},
+            {id: '2dasdada', name: 'Manu', age: 29},
+            {id: '3adasdas', name: 'Steffanie', age: 26}
+        ],
+        showPersons: true,
+        authenticated: false
+    };
 
     deletePersonHandler = (index) => {
         const persons = [...this.state.persons];
@@ -48,6 +39,12 @@ class App extends Component {
         })
     };
 
+    loginHandler = () => {
+        this.setState({
+            authenticated: true
+        })
+    };
+
     render() {
         console.log('[App.js] inside render');
         return (
@@ -55,12 +52,15 @@ class App extends Component {
                 <Cockpit
                     appTitle={this.props.title}
                     clicked={this.togglePersonsHandler}
+                    login={this.loginHandler}
                 />
-                <Persons
-                    persons={this.state.showPersons ? this.state.persons : []}
-                    clicked={this.deletePersonHandler}
-                    changed={this.nameChangeHandler}
-                />
+                <AuthContext.Provider value={this.state.authenticated}>
+                    <Persons
+                        persons={this.state.showPersons ? this.state.persons : []}
+                        clicked={this.deletePersonHandler}
+                        changed={this.nameChangeHandler}
+                    />
+                </AuthContext.Provider>
             </div>
         );
     }

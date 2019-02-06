@@ -9,6 +9,7 @@ const persons = (props) => (
                     key={person.id}
                     name={person.name}
                     age={person.age}
+                    position={index}
                     deletePerson={() => props.clicked(index)}
                     changed={(event) => props.changed(event, person.id)}
                 />
